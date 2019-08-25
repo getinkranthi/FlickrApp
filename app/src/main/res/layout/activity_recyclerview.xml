@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0ECEC"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/search_container"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        android:background="@android:color/holo_blue_light"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/input_box"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.7"
+            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            android:background="@android:color/darker_gray"
+            android:hint="Enter search keyword"
+            android:paddingLeft="12dp"
+            android:singleLine="true" />
+
+        <Button
+            android:id="@+id/search"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
+            android:background="@color/colorPrimary"
+            android:onClick="searchFlickrImages"
+            android:text="Search"
+            android:textSize="15sp"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+
+    <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/images_recycler_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/search_container"
+        android:scrollbars="vertical"
+        tools:context=".assignment.ImagesActivity">
+
+    </android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>

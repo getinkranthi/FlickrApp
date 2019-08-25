@@ -86,7 +86,7 @@ public class FlickrImagesActivity extends AppCompatActivity {
 
         photoList.add(null);
         mAdapter.notifyItemInserted(photoList.size() - 1);
-          loadingBarPos = photoList.size() - 1;
+        loadingBarPos = photoList.size() - 1;
 
         makeFlickrRequest(searchKeyword);
         mAdapter.notifyDataSetChanged();
@@ -94,12 +94,8 @@ public class FlickrImagesActivity extends AppCompatActivity {
     }
 
 
-
-
     public class HttpGetRequest extends AsyncTask<String, Void, String> {
-        public static final String REQUEST_METHOD = "GET";
-        public static final int READ_TIMEOUT = 15000;
-        public static final int CONNECTION_TIMEOUT = 15000;
+
         private ProgressDialog dialog;
 
         public HttpGetRequest(FlickrImagesActivity activity) {
@@ -109,7 +105,7 @@ public class FlickrImagesActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            dialog.setMessage(" Please wait...");
+            dialog.setMessage(getString(R.string.please_wait));
             if (initialLaunch) {
                 dialog.show();
             }
@@ -128,9 +124,9 @@ public class FlickrImagesActivity extends AppCompatActivity {
                 HttpURLConnection connection = (HttpURLConnection)
                         myUrl.openConnection();
                 //Set methods and timeouts
-                connection.setRequestMethod(REQUEST_METHOD);
-                connection.setReadTimeout(READ_TIMEOUT);
-                connection.setConnectTimeout(CONNECTION_TIMEOUT);
+                connection.setRequestMethod(Constants.REQUEST_METHOD);
+                connection.setReadTimeout(Constants.READ_TIMEOUT);
+                connection.setConnectTimeout(Constants.CONNECTION_TIMEOUT);
 
                 //Connect to our url
                 connection.connect();
@@ -160,7 +156,7 @@ public class FlickrImagesActivity extends AppCompatActivity {
             super.onPostExecute(result);
             isLoading = false;
 
-          //  Toast.makeText(FlickrImagesActivity.this, "response" + result, 4000).show();
+            //  Toast.makeText(FlickrImagesActivity.this, "response" + result, 4000).show();
             List<FlickrPhoto> photoFlickrList = new FlickrDataParser().parseResponse(result, photoList);
             dialog.dismiss();
             if (initialLaunch) {
@@ -173,11 +169,6 @@ public class FlickrImagesActivity extends AppCompatActivity {
                 mAdapter.notifyDataSetChanged();
                 mLayoutManager.scrollToPosition(loadingBarPos);
 
-              //  int loadingBarPos = photoFlickrList.size() - 101;
-                /*photoFlickrList.remove(photoFlickrList.size() - 101);
-                mAdapter.notifyItemRemoved(photoFlickrList.size() - 101);
-                mAdapter.notifyDataSetChanged();
-                mLayoutManager.scrollToPosition(photoFlickrList.size() - 101);*/
 
             }
         }
@@ -186,7 +177,7 @@ public class FlickrImagesActivity extends AppCompatActivity {
 
     private void setDataToView(List<FlickrPhoto> photoList) {
         mAdapter = new FlickrImageAdapter(this, photoList);
-        mLayoutManager = new GridLayoutManager(getApplicationContext(), 3);
+        mLayoutManager = new GridLayoutManager(getApplicationContext(), Constants.NUMBER_OF_COL);
         imagesList.setLayoutManager(mLayoutManager);
         imagesList.setItemAnimator(new DefaultItemAnimator());
         imagesList.setAdapter(mAdapter);
